@@ -1,0 +1,24 @@
+---
+- name: Get secrets from vault
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: bmstu.vats.init
+      vault_path_inventory: bots/data/deploy,inventory-secrets.yaml
+      vault_path_secrets:   bots/data/baumanec,manul-game-2023.yaml
+  tasks:
+    - name: Init a new swarm with default parameters
+      community.docker.docker_swarm:
+        state: present
+
+    - name: Run bot docker service
+      docker_swarm_service:
+        name: manul-game-2023
+        image: twobrowin/manul-game-2023:1.0.2
+        env:
+          TZ: "Europe/Moscow"
+          
+          BOT_TOKEN:     "{{ secrets.bot_token }}"
+          SHEETS_ACC:    "{{ secrets.sheet_acc | string }}"
+          SHEETS_LINK:   "{{ secrets.sheets_link }}"
+          SCHELDUE_TIME: "{{ secrets.scheldue_time }}"

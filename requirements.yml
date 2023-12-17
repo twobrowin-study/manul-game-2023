@@ -1,0 +1,4 @@
+collections:
+  - name: https://vats_requirements:glpat-CMVLfsMbw3iKomigZCNW@gitlab.bmstu.ru/infra/vats.git
+    type: git
+    version: main

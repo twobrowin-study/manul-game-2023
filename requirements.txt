@@ -1,0 +1,7 @@
+python-telegram-bot>=20.7
+python-telegram-bot[job-queue]
+gspread
+gspread-asyncio
+pandas
+python-dotenv
+loguru
